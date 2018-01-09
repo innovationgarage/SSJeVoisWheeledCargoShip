@@ -164,17 +164,21 @@ void loop() {
   corrected_x = kalAngleX - 171, 746;
   corrected_y = kalAngleY - 81, 80;
   corrected_y = corrected_y + 84;
-  Serial.print(corrected_y);
+
   pwm_adjust(corrected_y);
 
-double r = 6;
+double r = 10;
 
 //if(abs(corrected_y)>5)
 //r=30;
+corrected_y-=0.1;
+  Serial.print(corrected_y);
 
+if(abs(corrected_y)<0.1)
+r=0;
 
-left.write(4.5+90+corrected_y*r);
-right.write(3+90-corrected_y*r);
+left.write(max(0,min(180,4.5+90+corrected_y*r)));
+right.write(max(0,min(180,3+90-corrected_y*r)));
 /*}
 else
 {
